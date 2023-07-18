@@ -20,7 +20,7 @@ _______________
 |
 
 
-2 Wong guesses:
+2 Wrong guesses:
 _______________
 |/            |
 |             O 
@@ -31,7 +31,7 @@ _______________
 |
 
 
-3 Wong guesses:
+3 Wrong guesses:
 _______________
 |/            |
 |             O 
@@ -42,7 +42,7 @@ _______________
 |
 
 
-4 Wong guesses:
+4 Wrong guesses:
 _______________
 |/            |
 |             O 
@@ -53,7 +53,7 @@ _______________
 |
 
 
-5 Wong guesses:
+5 Wrong guesses:
 _______________
 |/            |
 |             O 
@@ -65,7 +65,7 @@ _______________
 
 
 
-6 Wong guesses:
+6 Wrong guesses:
 _______________
 |/            |
 |             O 
@@ -76,7 +76,7 @@ _______________
 |
 
 
-7 Wong guesses:
+7 Wrong guesses:
 _______________
 |/            |
 |             O 
