@@ -1,5 +1,5 @@
 import ipdb
-from models import session, Game, User
+from models import session, Game, User, User_Game
 
 def insert_words(file_path):    
     with open(file_path, 'r') as file:
@@ -21,7 +21,5 @@ def insert_username():
     session.add(new_user)
     session.commit()
     session.close()
-   
-
 
 ipdb.set_trace()
