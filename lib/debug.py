@@ -1,7 +1,5 @@
 import ipdb
-from models import session
-from models import Game
-from models import User
+from models import session, Game, User
 
 def insert_words(file_path):    
     with open(file_path, 'r') as file:
