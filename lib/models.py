@@ -11,3 +11,20 @@ engine = create_engine('sqlite:///words.db')
 Session = sessionmaker(bind=engine)
 
 session = Session()
+
+
+class User(Base):
+
+    __tablename__ = "user"
+    id = Column(Integer(), primary_key=True)
+    username = Column(String())
+
+
+
+class Game(Base):
+
+    __tablename__ = "game"
+    id = Column(Integer(), primary_key=True)
+    word = Column(String())
+
+
