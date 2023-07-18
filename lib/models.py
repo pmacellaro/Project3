@@ -27,4 +27,13 @@ class Game(Base):
     id = Column(Integer(), primary_key=True)
     word = Column(String())
 
+class User_Game(Base):
+    __tablename__ = "user_games"
+    id = Column(Integer(), primary_key=True)
+    user_id = Column(Integer())
+    game_id = Column(Integer())
+    start_time = Column(Integer())
+    end_time = Column(Integer())
+    score = Column(Integer())
+
 

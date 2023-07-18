@@ -21,7 +21,7 @@ def insert_username():
     session.add(new_user)
     session.commit()
     session.close()
-
+   
 
 
 ipdb.set_trace()
