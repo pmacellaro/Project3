@@ -62,98 +62,125 @@ def play():
 
 
     # generate a blank space for each letter in the word
-    word_blanks = " _ " * len(random_row.word)
+    word_blanks = "_" * len(random_row.word)
 
     print(f"Random Row ID: {random_row.id}, Name: {random_row.word}")
     print(word_blanks)
 
     # Keep track of the guesses + wrong guesses
+    guessed = False
     wrong_guesses = 0
     guessed_letters = []
-    guess = input('Letter Guess: ')
+    guessed_words = []
+    score = 7
+    while not guessed and wrong_guesses < 7:
+        guess = input('Letter Guess: ')
 
-    if guess in random_row.word:
-        word_blanks = ''
-        guessed_letters.append(guess)
-
-    if guess in guessed_letters:
-        print(f'You already guessed {guess}. Try again.')
-
+        if len(guess) == 1 and guess.isalpha():
+            if guess in guessed_letters:
+                    print(f'You already guessed {guess}. Try again.')
+            elif guess not in random_row.word:
+                print(f'Sorry, {guess} is not in the word.')
+                wrong_guesses += 1
+                score -= 1
+                guessed_letters.append(guess)
+            else:
+                guessed_letters.append(guess)
+                word_as_list = list(word_blanks)
+                indices = [i for i, letter in enumerate(random_row.word) if letter == guess]
+                for index in indices:
+                    word_as_list[index] = guess
+                    word_blanks = "".join(word_as_list)
+                if "_" not in word_blanks:
+                    guessed = True
+        elif len(guess) == len(random_row.word) and guess.isalpha():
+            if guess in guessed_words:
+                print(f'You already guessed the word {guess}')
+            elif guess != random_row.word:
+                print(guess, "WRONG!")
+                wrong_guesses += 1
+                score -= 1
+                guessed_words.append(guess)
+            else:
+                guessed = True
+                word_blanks = random_row.word
+        else:
+            print("That isn't a LETTER")
+        print(hangman(wrong_guesses))
+        print(word_blanks)
+        print("\n")
+    if guessed:
+        print("YOU WIN! COME GET A SMOOCH")
     else:
-        wrong_guesses += 1
-        # Print the hangman based on how many wrong guesses
-        if wrong_guesses == 1:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|')
-            print('|')
-            print('|')
-            print('|')
-            print('|')
+        if wrong_guesses == 7 or score <= 0:
+            print(f'You Lose, the word was {random_row.word}')
+            
 
-        if wrong_guesses == 2:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|             |')
-            print('|')
-            print('|')
-            print('|')
-            print('|')
+def hangman(wrong_guesses):
+    filled_man = [  
+        
+                """
+                   --------
+                   |      |
+                   |      
+                   |    
+                   |      
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |    
+                   |      
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / 
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                """
 
-        if wrong_guesses == 3:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|            /|')
-            print('|')
-            print('|')
-            print('|')
-            print('|')
+    ]
+    return filled_man[wrong_guesses]
 
-        if wrong_guesses == 4:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|            /|\\')
-            print('|')
-            print('|')
-            print('|')
-            print('|')
+            
+            
 
-        if wrong_guesses == 5:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|            /|\\')
-            print('|             |')
-            print('|')
-            print('|')
-            print('|')
-
-        if wrong_guesses == 6:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|            /|\\')
-            print('|             |')
-            print('|            /')
-            print('|')
-            print('|')
-
-        if wrong_guesses == 7:
-            print('_______________')
-            print('|/            |')
-            print('|             O')
-            print('|            /|\\')
-            print('|             |')
-            print('|            / \\')
-            print('|')
-            print('|')
-            print('')
-            print('You Lose :( ')
-            print(f'The word was: {random_row.word}')
+           
 
 
     # return random_row
