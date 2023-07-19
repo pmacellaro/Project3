@@ -39,7 +39,7 @@ class Game(Base):
 
     user_games = relationship('User_Game', back_populates= "game")
     def __repr__(self):
-        return f'<Game{self.word} >'
+        return f'<Game {self.word} >'
 
 
 

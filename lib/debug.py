@@ -48,8 +48,24 @@ def play():
     random_offset = random.randint(0, count - 1)
     random_row = query.offset(random_offset).first()
 
+
+    # generate a blank space for each letter in the word
+    word_blanks = "_" * len(random_row.word)
+
+    print(word_blanks)
+
+    # Keep track of the guesses + wrong guesses
+    guessed = False
+    wrong_guesses = 0
+    guessed_letters = []
+    guessed_words = []
+    score = 7
+
+
     print('')
     print('WELCOME TO HANGMAN')
+    print("")
+    # print(hangman(wrong_guesses[0]))
     # Print the hangman base to start
     print('_______________')
     print('|/            |')
@@ -61,18 +77,6 @@ def play():
     print('|')
 
 
-    # generate a blank space for each letter in the word
-    word_blanks = "_" * len(random_row.word)
-
-    print(f"Random Row ID: {random_row.id}, Name: {random_row.word}")
-    print(word_blanks)
-
-    # Keep track of the guesses + wrong guesses
-    guessed = False
-    wrong_guesses = 0
-    guessed_letters = []
-    guessed_words = []
-    score = 7
     while not guessed and wrong_guesses < 7:
         guess = input('Letter Guess: ')
 
@@ -106,73 +110,109 @@ def play():
                 word_blanks = random_row.word
         else:
             print("That isn't a LETTER")
+
         print(hangman(wrong_guesses))
         print(word_blanks)
         print("\n")
+
     if guessed:
-        print("YOU WIN! COME GET A SMOOCH")
+        print("    \    |   /")
+        print(" --- You Win! ---")
+        print("    /    |   \\")
+        print("")
+        print("COME GET A SMOOCH")
+
     else:
         if wrong_guesses == 7 or score <= 0:
-            print(f'You Lose, the word was {random_row.word}')
+            print("You Lose :'( ")
+            print(f'the word was {random_row.word}')
             
 
 def hangman(wrong_guesses):
     filled_man = [  
         
-                """
-                   --------
-                   |      |
-                   |      
-                   |    
-                   |      
-                   |     
-                   -
-                """,
-                """
-                   --------
-                   |      |
-                   |      O
-                   |    
-                   |      
-                   |     
-                   -
-                """,
-                """
-                   --------
-                   |      |
-                   |      O
-                   |      |
-                   |      |
-                   |     
-                   -
-                """,
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|
-                   |      |
-                   |     
-                   -
-                """,
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / 
-                   -
-                """,
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / \\
-                   -
-                """
+    """
+    _______________
+    |/            |
+    |              
+    |            
+    |             
+    |            
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            
+    |             
+    |            
+    |
+    |
+
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |             |
+    |             
+    |            
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            /|
+    |            
+    |            
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            /|\\
+    |            
+    |            
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            /|\\
+    |             |
+    |            
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            /|\\
+    |             |
+    |            /
+    |
+    |
+    """,
+    """
+    _______________
+    |/            |
+    |             O 
+    |            /|\\
+    |             |
+    |            / \\
+    |
+    |
+    """
+                
 
     ]
     return filled_man[wrong_guesses]
