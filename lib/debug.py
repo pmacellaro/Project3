@@ -134,6 +134,7 @@ _______________
         print(word_blanks)
         print("\n")
 
+    # if you win:
     if guessed:
         print("    \    |   /")
         print(" --- You Win! ---")
@@ -143,12 +144,22 @@ _______________
         print("")
         print(f'Your score: {score}/7')
 
+    # if you loose:
     else:
         if wrong_guesses == 7 or score <= 0:
+
             print("You Lose :'( ")
             print(f'the word was {random_row.word}')
             print(f'Your score: {score}/7')
             
+    
+    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, start_time = 0, end_time = 2, score = score)
+    session.add(leaderboard)
+    session.commit()
+    session.close()
+
+    print(leaderboard)
+
 
 def hangman(wrong_guesses):
     filled_man = [  

@@ -50,6 +50,7 @@ class User_Game(Base):
     game_id = Column(Integer(), ForeignKey('game.id'))
     start_time = Column(Integer())
     end_time = Column(Integer())
+    # time = Column(Integer())
     score = Column(Integer())
 
     user = relationship('User', back_populates = "user_games")
