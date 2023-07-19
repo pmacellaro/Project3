@@ -1,6 +1,7 @@
 import ipdb
 from models import session, Game, User, User_Game
 import random
+import time
 
 def insert_words(file_path):    
     with open(file_path, 'r') as file:
@@ -51,6 +52,9 @@ def play():
 
     # generate a blank space for each letter in the word
     word_blanks = "_" * len(current_word)
+
+    # ---START TIME HERE---
+    start_time = time.time()
 
     # ---GRAPHICS ON LOAD---
     print('')
@@ -144,21 +148,29 @@ _______________
         print("")
         print(f'Your score: {score}/7')
 
+        # --END TIME HERE--
+        end_time = time.time()
+
     # if you loose:
     else:
         if wrong_guesses == 7 or score <= 0:
-
             print("You Lose :'( ")
             print(f'the word was {random_row.word}')
             print(f'Your score: {score}/7')
+
+            # --END TIME HERE--
+            end_time = time.time()
             
     
-    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, start_time = 0, end_time = 2, score = score)
+    game_time = round((end_time - start_time), 1)
+    
+    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, start_time = start_time, end_time = end_time, score = score)
     session.add(leaderboard)
     session.commit()
     session.close()
 
-    print(leaderboard)
+    print(f'User: {username} Game: {current_word} Time: {game_time}seconds Score: {score}')
+    
 
 
 def hangman(wrong_guesses):
