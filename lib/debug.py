@@ -47,12 +47,12 @@ def play():
     # pick a random row between the first and last indices, inclusive
     random_offset = random.randint(0, count - 1)
     random_row = query.offset(random_offset).first()
-
+    current_word = random_row.word.lower()
 
     # generate a blank space for each letter in the word
-    word_blanks = "_" * len(random_row.word)
+    word_blanks = "_" * len(current_word)
 
-    print(word_blanks)
+    
 
     # Keep track of the guesses + wrong guesses
     guessed = False
@@ -67,23 +67,39 @@ def play():
     print("")
     # print(hangman(wrong_guesses[0]))
     # Print the hangman base to start
-    print('_______________')
-    print('|/            |')
-    print('|')
-    print('|')
-    print('|')
-    print('|')
-    print('|')
-    print('|')
+    # print('_______________')
+    # print('|/            |')
+    # print('|')
+    # print('|')
+    # print('|')
+    # print('|')
+    # print('|')
+    # print('|')
+
+    start_man = [
+        """
+_______________
+|/            |
+|              
+|            
+|             
+|            
+|
+|
+        """
+    ]
+
+    print(start_man[0])
+    print(word_blanks)
 
 
     while not guessed and wrong_guesses < 7:
-        guess = input('Letter Guess: ')
+        guess = input('Letter Guess: ').lower()
 
         if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters:
                     print(f'You already guessed {guess}. Try again.')
-            elif guess not in random_row.word:
+            elif guess not in current_word:
                 print(f'Sorry, {guess} is not in the word.')
                 wrong_guesses += 1
                 score -= 1
@@ -91,26 +107,27 @@ def play():
             else:
                 guessed_letters.append(guess)
                 word_as_list = list(word_blanks)
-                indices = [i for i, letter in enumerate(random_row.word) if letter == guess]
+                indices = [i for i, letter in enumerate(current_word) if letter == guess]
                 for index in indices:
                     word_as_list[index] = guess
                     word_blanks = "".join(word_as_list)
                 if "_" not in word_blanks:
                     guessed = True
-        elif len(guess) == len(random_row.word) and guess.isalpha():
+        elif len(guess) == len(current_word) and guess.isalpha():
             if guess in guessed_words:
                 print(f'You already guessed the word {guess}')
-            elif guess != random_row.word:
+            elif guess != current_word:
                 print(guess, "WRONG!")
                 wrong_guesses += 1
                 score -= 1
                 guessed_words.append(guess)
             else:
                 guessed = True
-                word_blanks = random_row.word
+                word_blanks = current_word
         else:
             print("That isn't a LETTER")
 
+        print(guessed_letters)
         print(hangman(wrong_guesses))
         print(word_blanks)
         print("\n")
@@ -121,97 +138,100 @@ def play():
         print("    /    |   \\")
         print("")
         print("COME GET A SMOOCH")
+        print("")
+        print(f'Your score: {score}/7')
 
     else:
         if wrong_guesses == 7 or score <= 0:
             print("You Lose :'( ")
             print(f'the word was {random_row.word}')
+            print(f'Your score: {score}/7')
             
 
 def hangman(wrong_guesses):
     filled_man = [  
         
-    """
-    _______________
-    |/            |
-    |              
-    |            
-    |             
-    |            
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            
-    |             
-    |            
-    |
-    |
+"""
+_______________
+|/            |
+|              
+|            
+|             
+|            
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            
+|             
+|            
+|
+|
 
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |             |
-    |             
-    |            
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            /|
-    |            
-    |            
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            /|\\
-    |            
-    |            
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            /|\\
-    |             |
-    |            
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            /|\\
-    |             |
-    |            /
-    |
-    |
-    """,
-    """
-    _______________
-    |/            |
-    |             O 
-    |            /|\\
-    |             |
-    |            / \\
-    |
-    |
-    """
+""",
+"""
+_______________
+|/            |
+|             O 
+|             |
+|             
+|            
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            /|
+|            
+|            
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            /|\\
+|            
+|            
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            /|\\
+|             |
+|            
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            /|\\
+|             |
+|            /
+|
+|
+""",
+"""
+_______________
+|/            |
+|             O 
+|            /|\\
+|             |
+|            / \\
+|
+|
+"""
                 
 
     ]
