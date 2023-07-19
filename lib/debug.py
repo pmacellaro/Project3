@@ -164,7 +164,7 @@ _______________
     
     game_time = round((end_time - start_time), 1)
     
-    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, start_time = start_time, end_time = end_time, score = score)
+    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, time = game_time, score = score)
     session.add(leaderboard)
     session.commit()
     session.close()
