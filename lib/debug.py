@@ -52,30 +52,10 @@ def play():
     # generate a blank space for each letter in the word
     word_blanks = "_" * len(current_word)
 
-    
-
-    # Keep track of the guesses + wrong guesses
-    guessed = False
-    wrong_guesses = 0
-    guessed_letters = []
-    guessed_words = []
-    score = 7
-
-
+    # ---GRAPHICS ON LOAD---
     print('')
     print('WELCOME TO HANGMAN')
     print("")
-    # print(hangman(wrong_guesses[0]))
-    # Print the hangman base to start
-    # print('_______________')
-    # print('|/            |')
-    # print('|')
-    # print('|')
-    # print('|')
-    # print('|')
-    # print('|')
-    # print('|')
-
     start_man = [
         """
 _______________
@@ -93,17 +73,30 @@ _______________
     print(word_blanks)
 
 
+    # Keep track of the guesses + wrong guesses
+    guessed = False
+    wrong_guesses = 0
+    guessed_letters = []
+    guessed_words = []
+    score = 7
+
+    # ---GAMEPLAY---
+    # while you have less than 7 wrong guesses, keep asking for a guess
     while not guessed and wrong_guesses < 7:
         guess = input('Letter Guess: ').lower()
 
+        # if the guess is 1 letter long:
         if len(guess) == 1 and guess.isalpha():
+            # if the guessed letter is already in the guessed_letters list, say that letter was already guessed.
             if guess in guessed_letters:
                     print(f'You already guessed {guess}. Try again.')
+            # if the gussed letter has not already been guessed (is not in the guessed_letters list), and is not in the word, add 1 to the wrong guesses, subtract one from the score, and add the guess to the guessed_letters list.
             elif guess not in current_word:
                 print(f'Sorry, {guess} is not in the word.')
                 wrong_guesses += 1
                 score -= 1
                 guessed_letters.append(guess)
+            # else (if the letter hasn't been guessed and it's in the word), add the letter to the guessed_letters list, turn the word blanks into a list, checking each letter in the word, match with word blanks. If the letter was guessed, it changes the corresponding word blank into that letter. 
             else:
                 guessed_letters.append(guess)
                 word_as_list = list(word_blanks)
@@ -111,22 +104,31 @@ _______________
                 for index in indices:
                     word_as_list[index] = guess
                     word_blanks = "".join(word_as_list)
+                # if there are no more word blanks, that means the word was guessed and player wins
                 if "_" not in word_blanks:
                     guessed = True
+    
+        # ---FOR GUESSING THE WHOLE WORD INSTEAD OF JUST A LETTER---
+        # if the length of the guess is the length of the current word:
         elif len(guess) == len(current_word) and guess.isalpha():
+            # if you already guessed that wrong word:
             if guess in guessed_words:
                 print(f'You already guessed the word {guess}')
+            # if you guess the word wrong
             elif guess != current_word:
                 print(guess, "WRONG!")
                 wrong_guesses += 1
                 score -= 1
                 guessed_words.append(guess)
+            # if you guess the word right, guessed changes to true and the player wins
             else:
                 guessed = True
                 word_blanks = current_word
+        # incase the guess is not a letter (.isalpha()).
         else:
             print("That isn't a LETTER")
 
+        # ---WHAT THE USER SEES WHILE PLAYING---
         print(guessed_letters)
         print(hangman(wrong_guesses))
         print(word_blanks)
@@ -237,13 +239,6 @@ _______________
     ]
     return filled_man[wrong_guesses]
 
-            
-            
-
-           
-
-
-    # return random_row
     
 
 ipdb.set_trace()
