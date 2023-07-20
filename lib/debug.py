@@ -175,7 +175,7 @@ _______________
     session.commit()
     session.close()
 
-    print(f'User: {username} Game: {current_word} Time: {game_time}seconds Score: {score}')
+    print(f'User: {username}   Game: "{current_word}"   Time: {game_time}seconds   Score: {score}')
     
 
 
