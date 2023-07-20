@@ -32,7 +32,7 @@ def play():
         new_user = User(username=username)
         session.add(new_user)
         session.commit()
-        session.close()
+        # session.close()
         start_game = input(f'Hello, {username}, would you like to play a game?')
         print('')
     
@@ -155,7 +155,7 @@ _______________
     else:
         if wrong_guesses == 7 or score <= 0:
             print("You Lose :'( ")
-            print(f'the word was {random_row.word}')
+            print(f'The word was {random_row.word}')
             print(f'Your score: {score}/7')
 
             # --END TIME HERE--
@@ -164,8 +164,14 @@ _______________
     
     game_time = round((end_time - start_time), 1)
     
-    leaderboard = User_Game(user_id = user.id, game_id = random_row.id, time = game_time, score = score)
-    session.add(leaderboard)
+    if user:
+        leaderboard = User_Game(user_id = user.id, game_id = random_row.id, time = game_time, score = score)
+        session.add(leaderboard)
+
+    else:
+        leaderboard = User_Game(user_id = new_user.id, game_id = random_row.id, time = game_time, score = score)
+        session.add(leaderboard)
+        
     session.commit()
     session.close()
 
