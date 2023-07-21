@@ -40,6 +40,7 @@ Good
 Government
 Happy
 Have
+Heart
 History
 Idea
 Important
@@ -93,6 +94,7 @@ Society
 Sort
 Special
 Substance
+Sun
 Thing
 Thought
 True
@@ -101,3 +103,10 @@ Way
 Wise
 Word
 Work
+Xylophone
+Yacht
+Yarn
+Yawn
+Yellow
+Yolk
+
